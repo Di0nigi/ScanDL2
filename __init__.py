@@ -1,10 +1,11 @@
 
 ## API implementation
 
-import scandl2_pkg as scandl2
-import scandl2_pkg.scandl_module as scandl
-import scandl_fixdur as fixdur
-import diffusion_only as diffusion
+from . import scandl2_pkg as scandl2
+
+from .scandl2_pkg import scandl_module as scandl
+from . import scandl_fixdur as fixdur
+from . import diffusion_only as diffusion
 
 
 __all__ = [
@@ -14,7 +15,8 @@ __all__ = [
 
     'fixdur',
     
-    'diffusion'
+    'diffusion',
+
 
 ]
 

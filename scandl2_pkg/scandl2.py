@@ -35,11 +35,11 @@ from transformers.models.bert.modeling_bert import BertEncoder
 from datasets import DatasetDict
 from datasets import Dataset as Dataset2
 
-from scandl2_pkg.scandl_module.original_scandl.sp_rounding import denoised_fn_round 
+from ..scandl2_pkg.scandl_module.original_scandl.sp_rounding import denoised_fn_round 
 from scandl2_pkg.scandl_module.original_scandl.utils import dist_util, logger
 from scandl2_pkg.scandl_module.original_scandl.utils.nn import * 
 
-from scandl2_pkg.scandl2_utils import text_dataset_loader, FixdurDataset
+from scandl2_pkg.utils.scandl2_utils import text_dataset_loader, FixdurDataset
 
 from scandl2_pkg.scandl_module.scripts.sp_load_celer_zuco import _collate_batch_helper
 from scandl2_pkg.scandl_module.scripts.sp_basic_utils import (
@@ -68,6 +68,7 @@ class ScanDL2(nn.Module):
         save: Optional[str] = None,
         filename: Optional[str] = None,
     ):
+        print("reached bitch")
         super(ScanDL2, self).__init__()
 
         self.save = save

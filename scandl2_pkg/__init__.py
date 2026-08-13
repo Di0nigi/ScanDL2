@@ -1,8 +1,8 @@
 # API implementation
 
-from scandl2 import ScanDL2
-from scandl2 import ScanDLModule
-from scandl2 import FixdurModule
+from .scandl2 import ScanDL2
+from .scandl2 import ScanDLModule
+from .scandl2 import FixdurModule
 
 
 
