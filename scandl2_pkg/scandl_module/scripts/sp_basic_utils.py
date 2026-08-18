@@ -3,9 +3,9 @@ import json
 import sys
 
 
-from scandl2_pkg.scandl_module.original_scandl import sp_gaussian_diffusion as gd
-from scandl2_pkg.scandl_module.original_scandl.sp_gaussian_diffusion import SpacedDiffusion, space_timesteps
-from scandl2_pkg.scandl_module.original_scandl.sp_transformer_model import TransformerNetModel
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl import sp_gaussian_diffusion as gd
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl.sp_gaussian_diffusion import SpacedDiffusion, space_timesteps
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl.sp_transformer_model import TransformerNetModel
 
 
 sys.path.append('./')

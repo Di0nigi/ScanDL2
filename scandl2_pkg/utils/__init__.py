@@ -1,14 +1,15 @@
-from scandl2_utils import TextDataset
+# API implementation
 
-
-from scandl2_utils import FixdurDataset
-from scandl2_utils import text_dataset_loader
+from ScanDL2.scandl2_pkg.utils.scandl2_utils import TextDataset
+from ScanDL2.scandl2_pkg.utils.scandl2_utils import text_dataset_loader
+from ScanDL2.scandl2_pkg.utils.scandl2_utils import FixdurDataset
 
 
 __all__ = [
 
-   # Utils
-   'TextDataset',
-   'FixdurDataset',
-   'text_dataset_loader'
+    'text_dataset_loader',
+    'TextDataset',
+    'FixdurDataset'
+
+
 ]

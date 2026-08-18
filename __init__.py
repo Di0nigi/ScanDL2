@@ -1,21 +1,23 @@
 
 ## API implementation
 
-from . import scandl2_pkg as scandl2
+from ScanDL2.scandl2_pkg import ScanDL2
+from ScanDL2.scandl2_pkg import ScanDLModule
+from ScanDL2.scandl2_pkg import FixdurModule
+from ScanDL2.scandl2_pkg import TextDataset
+from ScanDL2.scandl2_pkg import FixdurDataset
+from ScanDL2.scandl2_pkg import text_dataset_loader
 
-from .scandl2_pkg import scandl_module as scandl
-from . import scandl_fixdur as fixdur
-from . import diffusion_only as diffusion
 
 
 __all__ = [
-    'scandl2',
-
-    'scandl',
-
-    'fixdur',
-    
-    'diffusion',
+    'ScanDL2',
+    'ScanDLModule',
+    'FixdurModule',
+    # utils
+    'TextDataset',
+    'FixdurDataset',
+    'text_dataset_loader'
 
 
 ]

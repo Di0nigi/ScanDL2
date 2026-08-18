@@ -35,24 +35,24 @@ from transformers.models.bert.modeling_bert import BertEncoder
 from datasets import DatasetDict
 from datasets import Dataset as Dataset2
 
-from ..scandl2_pkg.scandl_module.original_scandl.sp_rounding import denoised_fn_round 
-from scandl2_pkg.scandl_module.original_scandl.utils import dist_util, logger
-from scandl2_pkg.scandl_module.original_scandl.utils.nn import * 
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl.sp_rounding import denoised_fn_round 
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl.utils import dist_util, logger
+from ScanDL2.scandl2_pkg.scandl_module.original_scandl.utils.nn import * 
 
-from scandl2_pkg.utils.scandl2_utils import text_dataset_loader, FixdurDataset
+from ScanDL2.scandl2_pkg.utils.scandl2_utils import text_dataset_loader, FixdurDataset
 
-from scandl2_pkg.scandl_module.scripts.sp_load_celer_zuco import _collate_batch_helper
-from scandl2_pkg.scandl_module.scripts.sp_basic_utils import (
+from ScanDL2.scandl2_pkg.scandl_module.scripts.sp_load_celer_zuco import _collate_batch_helper
+from ScanDL2.scandl2_pkg.scandl_module.scripts.sp_basic_utils import (
     load_defaults_config,
     create_model_and_diffusion,
     add_dict_to_argparser,
     args_to_dict,
 )
 
-from scandl2_pkg.fix_dur_module.model_seq2seq import Seq2SeqModel
-from scandl2_pkg.fix_dur_module.utils_data import aggregate_input_embeddings, padding_and_mask_seq2seq
+from ScanDL2.scandl2_pkg.fix_dur_module.model_seq2seq import Seq2SeqModel
+from ScanDL2.scandl2_pkg.fix_dur_module.utils_data import aggregate_input_embeddings, padding_and_mask_seq2seq
 
-from scandl2_pkg.PATHS import (
+from ScanDL2.scandl2_pkg.PATHS import (
     SENT_SCANDL_MODULE,
     SENT_FIXDUR_MODULE,
     PAR_SCANDL_MODULE,
@@ -128,7 +128,7 @@ class ScanDLModule(nn.Module):
     ):
         super(ScanDLModule, self).__init__()
 
-        base_path = 'scandl2_pkg'
+        base_path = 'ScanDL2/scandl2_pkg'
         if text_type == 'paragraph':
             self.path_to_config = os.path.join(base_path, 'config_emtec.json')
             self.path_to_scandl_module = PAR_SCANDL_MODULE
