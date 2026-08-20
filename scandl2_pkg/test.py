@@ -2,7 +2,7 @@
 # comment if in mac
 import patch_dist 
 
-from scandl2_pkg.scandl2 import ScanDL2
+from ScanDL2.scandl2_pkg.scandl2 import ScanDL2
 
 
 def main():

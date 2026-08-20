@@ -128,7 +128,7 @@ class ScanDLModule(nn.Module):
     ):
         super(ScanDLModule, self).__init__()
 
-        base_path = 'ScanDL2/scandl2_pkg'
+        base_path = os.path.dirname(__file__)
         if text_type == 'paragraph':
             self.path_to_config = os.path.join(base_path, 'config_emtec.json')
             self.path_to_scandl_module = PAR_SCANDL_MODULE
@@ -484,7 +484,7 @@ class FixdurModule(nn.Module):
     ):
         super(FixdurModule, self).__init__()
 
-        base_path = 'scandl2_pkg'
+        base_path = os.path.dirname(__file__)
         if text_type == 'paragraph':
             self.path_to_config = os.path.join(base_path, 'config_emtec.json')
             self.path_to_fixdur_module = PAR_FIXDUR_MODULE
@@ -562,7 +562,8 @@ class FixdurModule(nn.Module):
         )
         fixdur_module.load_state_dict(
             torch.load(
-                os.path.join(self.path_to_fixdur_module, 'seq2seq_fixdur.pt')
+                os.path.join(self.path_to_fixdur_module, 'seq2seq_fixdur.pt'),
+                map_location=self.device,
             )
         )
         fixdur_module.eval()
