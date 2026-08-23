@@ -17,13 +17,13 @@ from transformers import set_seed
 from transformers import BertTokenizerFast
 from datasets import load_from_disk, DatasetDict
 
-from scandl_diff_dur.sp_rounding import denoised_fn_round
-from scandl_diff_dur.utils import dist_util, logger
-from scandl_diff_dur.utils.nn import *
-from scripts.sp_load_celer_zuco import celer_zuco_dataset_and_loader
-from scripts.sp_load_celer_zuco import load_zuco, process_zuco
+from ScanDL2.diffusion_only.scandl_diff_dur.sp_rounding import denoised_fn_round
+from ScanDL2.diffusion_only.scandl_diff_dur.utils import dist_util, logger
+from ScanDL2.diffusion_only.scandl_diff_dur.utils.nn import *
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import celer_zuco_dataset_and_loader
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_zuco, process_zuco
 
-from scripts.sp_basic_utils import (
+from ScanDL2.diffusion_only.scripts.sp_basic_utils import (
     load_defaults_config,
     create_model_and_diffusion,
     add_dict_to_argparser,

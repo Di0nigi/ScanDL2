@@ -16,18 +16,18 @@ from sklearn.model_selection import train_test_split
 from transformers import set_seed, BertTokenizerFast
 from datasets import load_from_disk, DatasetDict, Dataset
 
-from scandl_diff_dur.utils import dist_util, logger
-from scandl_diff_dur.step_sample import create_named_schedule_sampler
-from scripts.sp_basic_utils import (
+from ScanDL2.diffusion_only.scandl_diff_dur.utils import dist_util, logger
+from ScanDL2.diffusion_only.scandl_diff_dur.step_sample import create_named_schedule_sampler
+from ScanDL2.diffusion_only.scripts.sp_basic_utils import (
     load_defaults_config,
     create_model_and_diffusion,
     args_to_dict,
     add_dict_to_argparser,
 )
-from scripts.sp_train_util import TrainLoop
-from scripts.sp_load_celer_zuco import load_celer, load_celer_speakers, process_celer, celer_zuco_dataset_and_loader
-from scripts.sp_load_celer_zuco import get_kfold, get_kfold_indices_combined
-from scripts.sp_load_celer_zuco import flatten_data, unflatten_data
+from ScanDL2.diffusion_only.scripts.sp_train_util import TrainLoop
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_celer, load_celer_speakers, process_celer, celer_zuco_dataset_and_loader
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import get_kfold, get_kfold_indices_combined
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import flatten_data, unflatten_data
 
 os.environ["WANDB_MODE"] = "offline"
 

@@ -21,13 +21,13 @@ from transformers import set_seed
 from transformers import BertTokenizerFast
 from datasets import load_from_disk
 
-from original_scandl.sp_rounding import denoised_fn_round
-from original_scandl.utils import dist_util, logger
-from original_scandl.utils.nn import *
-from scripts.sp_load_celer_zuco import celer_zuco_dataset_and_loader
-from scripts.sp_load_celer_zuco import load_zuco, process_zuco
-from scripts.attention_visualization import attention_visualization
-from scripts.sp_basic_utils import (
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.sp_rounding import denoised_fn_round
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.utils import dist_util, logger
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.utils.nn import *
+from ScanDL2.scandl_fixdur.scandl_module.scripts.sp_load_celer_zuco import celer_zuco_dataset_and_loader
+from ScanDL2.scandl_fixdur.scandl_module.scripts.sp_load_celer_zuco import load_zuco, process_zuco
+from ScanDL2.scandl_fixdur.scandl_module.scripts.attention_visualization import attention_visualization
+from ScanDL2.scandl_fixdur.scandl_module.scripts.sp_basic_utils import (
     load_defaults_config,
     create_model_and_diffusion,
     add_dict_to_argparser,

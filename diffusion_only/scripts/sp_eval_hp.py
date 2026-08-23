@@ -10,13 +10,13 @@ sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
 
-from CONSTANTS import DIFFUSION_ONLY_INF_PATH
+from ScanDL2.CONSTANTS import DIFFUSION_ONLY_INF_PATH
 
-from diffusion_only.scripts.scanpath_similarity import levenshtein_distance
-from diffusion_only.scripts.scanpath_similarity import levenshtein_similarity
-from diffusion_only.scripts.scanpath_similarity import levenshtein_normalized_distance
-from diffusion_only.scripts.scanpath_similarity import levenshtein_normalized_similarity
-from diffusion_only.scripts.scasim import scasim
+from ScanDL2.diffusion_only.scripts.scanpath_similarity import levenshtein_distance
+from ScanDL2.diffusion_only.scripts.scanpath_similarity import levenshtein_similarity
+from ScanDL2.diffusion_only.scripts.scanpath_similarity import levenshtein_normalized_distance
+from ScanDL2.diffusion_only.scripts.scanpath_similarity import levenshtein_normalized_similarity
+from ScanDL2.diffusion_only.scripts.scasim import scasim
 
 
 def main():

@@ -15,7 +15,7 @@ import sys
 sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
-from CONSTANTS import (
+from ScanDL2.CONSTANTS import (
     PATH_TO_FIX, 
     PATH_TO_IA, 
     SUB_METADATA_PATH, 

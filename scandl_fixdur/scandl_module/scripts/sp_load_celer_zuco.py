@@ -15,7 +15,7 @@ sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
 
-from CONSTANTS import PATH_TO_IA, PATH_TO_FIX, SUB_METADATA_PATH, path_to_zuco
+from ScanDL2.CONSTANTS import PATH_TO_IA, PATH_TO_FIX, SUB_METADATA_PATH, path_to_zuco
 
 
 def load_celer():

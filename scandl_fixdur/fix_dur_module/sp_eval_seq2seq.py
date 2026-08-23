@@ -9,16 +9,16 @@ sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
 
-from CONSTANTS import FIXDUR_MODULE_INF_PATH, FIXDUR_MODULE_INF_PATH_BSC, FIXDUR_MODULE_INF_PATH_EMTEC
+from ScanDL2.CONSTANTS import FIXDUR_MODULE_INF_PATH, FIXDUR_MODULE_INF_PATH_BSC, FIXDUR_MODULE_INF_PATH_EMTEC
 
 import numpy as np
 import pandas as pd
 import json
-from scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_distance
-from scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_similarity
-from scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_normalized_distance
-from scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_normalized_similarity
-from scandl_fixdur.fix_dur_module.scasim import scasim
+from ScanDL2.scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_distance
+from ScanDL2.scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_similarity
+from ScanDL2.scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_normalized_distance
+from ScanDL2.scandl_fixdur.scandl_module.scripts.scanpath_similarity import levenshtein_normalized_similarity
+from ScanDL2.scandl_fixdur.fix_dur_module.scasim import scasim
 from typing import Optional
 from argparse import ArgumentParser
 

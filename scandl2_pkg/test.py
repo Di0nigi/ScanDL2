@@ -1,6 +1,6 @@
 
 # comment if in mac
-import patch_dist 
+# import patch_dist 
 
 from ScanDL2.scandl2_pkg.scandl2 import ScanDL2
 

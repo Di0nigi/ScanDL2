@@ -1,9 +1,9 @@
 import argparse
 import json
 
-from scandl_diff_dur import sp_gaussian_diffusion as gd
-from scandl_diff_dur.sp_gaussian_diffusion import SpacedDiffusion, space_timesteps
-from scandl_diff_dur.sp_transformer_model import TransformerNetModel
+from ScanDL2.diffusion_only.scandl_diff_dur import sp_gaussian_diffusion as gd
+from ScanDL2.diffusion_only.scandl_diff_dur.sp_gaussian_diffusion import SpacedDiffusion, space_timesteps
+from ScanDL2.diffusion_only.scandl_diff_dur.sp_transformer_model import TransformerNetModel
 
 
 def load_defaults_config():

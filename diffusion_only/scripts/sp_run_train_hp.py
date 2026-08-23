@@ -13,7 +13,7 @@ sys.path.append('./')
 sys.path.append('../')
 sys.path.append('../../')
 
-from CONSTANTS import DIFFUSION_ONLY_TRAIN_PATH
+from ScanDL2.CONSTANTS import DIFFUSION_ONLY_TRAIN_PATH
 
 
 if __name__ == '__main__':

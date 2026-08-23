@@ -11,11 +11,11 @@ import pandas as pd
 import sys
 
 
-from diffusion_only.scripts.sp_load_celer_zuco import load_celer, load_celer_speakers, process_celer
-from diffusion_only.scripts.sp_load_celer_zuco import load_zuco, process_zuco, get_kfold, get_kfold_indices_combined
-from diffusion_only.scripts.sp_load_celer_zuco import load_emtec, process_emtec
-from diffusion_only.scripts.sp_load_celer_zuco import load_bsc, process_bsc
-from diffusion_only.scripts.sp_load_celer_zuco import flatten_data, unflatten_data
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_celer, load_celer_speakers, process_celer
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_zuco, process_zuco, get_kfold, get_kfold_indices_combined
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_emtec, process_emtec
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import load_bsc, process_bsc
+from ScanDL2.diffusion_only.scripts.sp_load_celer_zuco import flatten_data, unflatten_data
 from transformers import set_seed, BertTokenizerFast
 
 sys.path.append('./')

@@ -9,16 +9,16 @@ import torch.distributed as dist
 from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 from torch.optim import AdamW
 
-from original_scandl.utils import dist_util, logger
-from original_scandl.utils.fp16_util import (
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.utils import dist_util, logger
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.utils.fp16_util import (
     make_master_params,
     master_params_to_model_params,
     model_grads_to_master_grads,
     unflatten_master_params,
     zero_grad,
 )
-from original_scandl.utils.nn import update_ema
-from original_scandl.step_sample import LossAwareSampler, UniformSampler
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.utils.nn import update_ema
+from ScanDL2.scandl_fixdur.scandl_module.original_scandl.step_sample import LossAwareSampler, UniformSampler
 
 
 INITIAL_LOG_LOSS_SCALE = 20.0

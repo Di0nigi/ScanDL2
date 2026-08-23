@@ -4,7 +4,7 @@ import argparse
 import datetime
 import time
 
-from CONSTANTS import (
+from ScanDL2.CONSTANTS import (
     COMPLETE_SCANDL_MODULE_TRAIN_PATH_BSC,
     COMPLETE_SCANDL_MODULE_TRAIN_PATH_CELER,
     COMPLETE_SCANDL_MODULE_TRAIN_PATH_EMTEC,

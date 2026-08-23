@@ -9,7 +9,7 @@ import glob
 import argparse
 sys.path.append('.')
 sys.path.append('..')
-from CONSTANTS import DIFFUSION_ONLY_TRAIN_PATH, DIFFUSION_ONLY_INF_PATH
+from ScanDL2.CONSTANTS import DIFFUSION_ONLY_TRAIN_PATH, DIFFUSION_ONLY_INF_PATH
 
 
 def get_parser() -> argparse.ArgumentParser:

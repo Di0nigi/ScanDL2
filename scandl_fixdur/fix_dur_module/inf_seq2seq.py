@@ -27,8 +27,8 @@ from sklearn.preprocessing import StandardScaler
 from transformers import GPT2TokenizerFast, GPT2LMHeadModel, GPT2Model, AutoConfig, BertModel 
 from transformers.models.bert.modeling_bert import BertEncoder, BertPooler
 
-from scandl_fixdur.fix_dur_module.model_seq2seq import Seq2SeqModel
-from scandl_fixdur.fix_dur_module.utils_data import prepare_seq2seq_data_hp, Seq2SeqDatasetHP
+from ScanDL2.scandl_fixdur.fix_dur_module.model_seq2seq import Seq2SeqModel
+from ScanDL2.scandl_fixdur.fix_dur_module.utils_data import prepare_seq2seq_data_hp, Seq2SeqDatasetHP
 
 
 

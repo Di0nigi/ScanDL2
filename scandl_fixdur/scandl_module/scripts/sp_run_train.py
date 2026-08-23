@@ -3,7 +3,7 @@ import os
 import argparse
 import datetime
 import time
-from CONSTANTS import SCANDL_MODULE_TRAIN_PATH, SCANDL_MODULE_TRAIN_PATH_EMTEC, SCANDL_MODULE_TRAIN_PATH_BSC
+from ScanDL2.CONSTANTS import SCANDL_MODULE_TRAIN_PATH, SCANDL_MODULE_TRAIN_PATH_EMTEC, SCANDL_MODULE_TRAIN_PATH_BSC
 #sys.path.append('.')
 #sys.path.append('..')
 

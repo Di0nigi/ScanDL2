@@ -20,9 +20,9 @@ from torch.utils.data import Dataset, DataLoader
 from datasets import load_from_disk, DatasetDict
 from sklearn.preprocessing import MinMaxScaler
 
-from scandl2_pkg.fix_dur_module.utils_data import prepare_seq2seq_data, get_embeddings_seq2seq, Seq2SeqDataset, split_train_val_data
-from scandl2_pkg.fix_dur_module.model_seq2seq import Seq2SeqModel
-from scandl2_pkg.fix_dur_module.utils_train import EarlyStopping, train
+from ScanDL2.scandl2_pkg.fix_dur_module.utils_data import prepare_seq2seq_data, get_embeddings_seq2seq, Seq2SeqDataset, split_train_val_data
+from ScanDL2.scandl2_pkg.fix_dur_module.model_seq2seq import Seq2SeqModel
+from ScanDL2.scandl2_pkg.fix_dur_module.utils_train import EarlyStopping, train
 
 sys.path.append('./')
 sys.path.append('../')
