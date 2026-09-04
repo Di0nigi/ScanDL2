@@ -312,7 +312,7 @@ class ScanDLModule(nn.Module):
             'words_for_mapping': [],
             'sn_repr_len': [],
         }
-
+ 
         if isinstance(texts, str):
             texts = [texts]
         

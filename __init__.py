@@ -1,25 +1,31 @@
 
 ## API implementation
+from ScanDL2 import ScanDL2Module
+from ScanDL2 import ScanDLModule
+from ScanDL2 import FixDurModule
 
-from ScanDL2.scandl2_pkg import ScanDL2
-from ScanDL2.scandl2_pkg import ScanDLModule
-from ScanDL2.scandl2_pkg import FixdurModule
-from ScanDL2.scandl2_pkg import TextDataset
-from ScanDL2.scandl2_pkg import FixdurDataset
-from ScanDL2.scandl2_pkg import text_dataset_loader
+from ScanDL2.ScanDL2Module import ScanDL2
+from ScanDL2.ScanDLModule import ScanDL
+from ScanDL2.FixDurModule import FixDurModel
+
+
+
+# from ScanDL2.scandl2_pkg import FixdurModule
+
 
 
 
 __all__ = [
-    'ScanDL2',
+    'ScanDL2Module',
     'ScanDLModule',
-    'FixdurModule',
-    # utils
-    'TextDataset',
-    'FixdurDataset',
-    'text_dataset_loader'
+    'FixDurModule',
 
+    'ScanDL2',
+    'ScanDL',
+    'FixDurModel',
+    
 
+    
 ]
 
 

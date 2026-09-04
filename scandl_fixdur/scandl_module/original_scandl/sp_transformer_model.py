@@ -15,7 +15,7 @@ class TransformerNetModel(nn.Module):
     """
     The ScanDL transformer.
     """
-
+ 
     def __init__(
         self,
         input_dims,
