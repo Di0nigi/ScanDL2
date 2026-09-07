@@ -7,9 +7,9 @@ from ScanDL2.scandl_fixdur.scandl_module.original_scandl.sp_rounding import deno
 
 __all__ = [
     'ScanDL',
-
     'TransformerNetModel',
-
+    #change
+  
     'GaussianDiffusion',
     'SpacedDiffusion',
     'denoised_fn_round'
