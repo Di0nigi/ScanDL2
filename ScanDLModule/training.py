@@ -1,5 +1,5 @@
-from ScanDL2.scandl_fixdur.scandl_module.original_scandl.step_sample import LossSecondMomentResampler, UniformSampler, create_named_schedule_sampler
-from ScanDL2.scandl_fixdur.scandl_module.scripts.sp_train_util import TrainLoop
+from ScanDL2.ScanDLModule.scandl_module.original_scandl.step_sample import LossSecondMomentResampler, UniformSampler, create_named_schedule_sampler
+from ScanDL2.ScanDLModule.scandl_module.scripts.sp_train_util import TrainLoop
 
 
 
