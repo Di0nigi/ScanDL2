@@ -68,7 +68,6 @@ class ScanDL2(nn.Module):
         save: Optional[str] = None,
         filename: Optional[str] = None,
     ):
-        print("reached bitch")
         super(ScanDL2, self).__init__()
 
         self.save = save
