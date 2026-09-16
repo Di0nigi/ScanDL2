@@ -1,0 +1,15 @@
+blobfile==2.0.1
+datasets==2.14.7
+huggingface-hub==0.17.3
+joblib
+matplotlib>=3.7,<3.9
+numpy==1.23.5
+openpyxl==3.0.10
+pandas==1.5.3
+scikit-learn==1.6.1
+seaborn==0.12.2
+textdistance
+tqdm==4.66.4
+transformers==4.34.1
+wandb==0.14.0
+setuptools==68.2.2 #for compatibility with wandb 0.14.0
