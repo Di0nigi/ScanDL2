@@ -283,7 +283,6 @@ class ScanDLModule(nn.Module):
             'unique_idx': unique_idx,
         }
         return predictions
-
     
     def _remove_special_tokens(
         self,
