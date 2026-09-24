@@ -121,7 +121,7 @@ The added [handler.py](handler.py) defines an `EndpointHandler` adapter intended
 
 The adapter is intended to select the sentence or paragraph model and return the model's output dictionary. It does not itself start an HTTP server.
 
-**Current implementation note:** the handler imports the package as a callable and accesses batch-size/module attributes that do not match the current model class. Those references need correction before this request format can be used end to end. The Python API and Gradio interface above call the model class directly.
+If omitted, `text_type` defaults to `"sentence"` and `bsz` to `2`. The batch size must be a positive integer and is applied to both model components.
 
 ## Training, inference, and evaluation
 

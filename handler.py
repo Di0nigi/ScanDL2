@@ -1,6 +1,6 @@
 import torch
 
-import ScanDL2 
+from ScanDL2 import ScanDL2
 
 class EndpointHandler:
     def __init__(self, path: str = ""):
@@ -33,14 +33,14 @@ class EndpointHandler:
 
         parameters = data.get("parameters", {})
 
-        text_type = parameters.get("text_type")
+        text_type = parameters.get("text_type", "sentence")
         model = self.models[text_type]
-        bsz = parameters.get("bsz")
+        bsz = parameters.get("bsz", 2)
 
-        if model.bsz != bsz:
-            model.bsz = bsz
-            model.ScanDLModule.bsz=bsz
-            model.FixdurModule.bsz=bsz
+        if model.scandl_module.args.batch_size != bsz:
+            model.scandl_module.args.batch_size = bsz
+            model.fixdur_module.bsz = bsz
+            model.fixdur_module.args["bsz"] = bsz
         
         
         if isinstance(inputs, str):
