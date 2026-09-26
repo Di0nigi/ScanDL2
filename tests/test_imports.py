@@ -18,7 +18,7 @@ EXPECTED_IMPORT_FAILURES = {
     ),
     (
         "ScanDL2/fix_dur_module/train_seq2seq.py",
-        "from ScanDL2.CONSTANTS import COMPLETE_FIXDUR_MODULE_TRAIN_PATH_BSC",
+        "from ScanDL2.CONSTANTS import (\n    COMPLETE_FIXDUR_MODULE_TRAIN_PATH_BSC",
     ),
     (
         "ScanDL2/scandl_module/scripts/sp_run_train.py",
