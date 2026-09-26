@@ -3,20 +3,40 @@ import sys
 import unittest
 from pathlib import Path
 
-
 SCANDL2_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = SCANDL2_ROOT.parent
 EXCLUDED_DIRS = {"__pycache__", ".git", "tests"}
 EXPECTED_IMPORT_FAILURES = {
     ("ScanDL2/app.py", "import gradio as gr"),
-    ("ScanDL2/create_data.py", "from ScanDL2.scandl_module.scripts.sp_load_celer_zuco import load_emtec, process_emtec"),
-    ("ScanDL2/create_data.py", "from ScanDL2.scandl_module.scripts.sp_load_celer_zuco import load_bsc, process_bsc"),
-    ("ScanDL2/fix_dur_module/train_seq2seq.py", "from ScanDL2.CONSTANTS import COMPLETE_FIXDUR_MODULE_TRAIN_PATH_BSC"),
-    ("ScanDL2/scandl_module/scripts/sp_run_train.py", "from ScanDL2.CONSTANTS import (\n    COMPLETE_SCANDL_MODULE_TRAIN_PATH_BSC"),
+    (
+        "ScanDL2/create_data.py",
+        "from ScanDL2.scandl_module.scripts.sp_load_celer_zuco import load_emtec, process_emtec",
+    ),
+    (
+        "ScanDL2/create_data.py",
+        "from ScanDL2.scandl_module.scripts.sp_load_celer_zuco import load_bsc, process_bsc",
+    ),
+    (
+        "ScanDL2/fix_dur_module/train_seq2seq.py",
+        "from ScanDL2.CONSTANTS import COMPLETE_FIXDUR_MODULE_TRAIN_PATH_BSC",
+    ),
+    (
+        "ScanDL2/scandl_module/scripts/sp_run_train.py",
+        "from ScanDL2.CONSTANTS import (\n    COMPLETE_SCANDL_MODULE_TRAIN_PATH_BSC",
+    ),
     ("ScanDL2/scandl_module/original_scandl/utils/logger.py", "import tensorflow as tf"),
-    ("ScanDL2/scandl_module/original_scandl/utils/logger.py", "from tensorflow.python import pywrap_tensorflow"),
-    ("ScanDL2/scandl_module/original_scandl/utils/logger.py", "from tensorflow.core.util import event_pb2"),
-    ("ScanDL2/scandl_module/original_scandl/utils/logger.py", "from tensorflow.python.util import compat"),
+    (
+        "ScanDL2/scandl_module/original_scandl/utils/logger.py",
+        "from tensorflow.python import pywrap_tensorflow",
+    ),
+    (
+        "ScanDL2/scandl_module/original_scandl/utils/logger.py",
+        "from tensorflow.core.util import event_pb2",
+    ),
+    (
+        "ScanDL2/scandl_module/original_scandl/utils/logger.py",
+        "from tensorflow.python.util import compat",
+    ),
 }
 
 if str(PROJECT_ROOT) not in sys.path:

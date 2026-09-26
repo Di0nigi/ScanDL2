@@ -29,9 +29,7 @@ def make_master_params(model_params):
     Copy model parameters into a (differently-shaped) list of full-precision
     parameters.
     """
-    master_params = _flatten_dense_tensors(
-        [param.detach().float() for param in model_params]
-    )
+    master_params = _flatten_dense_tensors([param.detach().float() for param in model_params])
     master_params = nn.Parameter(master_params)
     master_params.requires_grad = True
     return [master_params]

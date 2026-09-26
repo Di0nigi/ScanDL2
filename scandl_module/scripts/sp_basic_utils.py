@@ -4,18 +4,21 @@ import sys
 
 
 from ScanDL2.scandl_module.original_scandl import sp_gaussian_diffusion as gd
-from ScanDL2.scandl_module.original_scandl.sp_gaussian_diffusion import SpacedDiffusion, space_timesteps
+from ScanDL2.scandl_module.original_scandl.sp_gaussian_diffusion import (
+    SpacedDiffusion,
+    space_timesteps,
+)
 from ScanDL2.scandl_module.original_scandl.sp_transformer_model import TransformerNetModel
 
+sys.path.append("./")
+sys.path.append("../")
 
-sys.path.append('./')
-sys.path.append('../')
 
 def load_defaults_config(config_path: str):
     """
     Load defaults for training args.
     """
-    with open(config_path, 'r') as f:
+    with open(config_path, "r") as f:
         return json.load(f)
 
 
@@ -54,7 +57,7 @@ def create_model_and_diffusion(
         dropout=dropout,
         config_name=config_name,
         vocab_size=vocab_size,
-        init_pretrained=use_plm_init
+        init_pretrained=use_plm_init,
     )
 
     betas = gd.get_named_beta_schedule(noise_schedule, diffusion_steps)
@@ -73,7 +76,7 @@ def create_model_and_diffusion(
         one_noise_step=one_noise_step,
         nll_in_loss=nll_in_loss,
         mask_padding=mask_padding,
-        rescale_learned_sigmas=rescale_learned_sigmas
+        rescale_learned_sigmas=rescale_learned_sigmas,
     )
 
     return model, diffusion

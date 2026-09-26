@@ -11,6 +11,7 @@ from .utils.nn import (
     timestep_embedding,
 )
 
+
 class TransformerNetModel(nn.Module):
     """
     The ScanDL transformer.
@@ -27,9 +28,9 @@ class TransformerNetModel(nn.Module):
         mask_padding,
         dropout=0,
         config=None,
-        config_name='bert-base-uncased',
+        config_name="bert-base-uncased",
         vocab_size=None,
-        init_pretrained='no',
+        init_pretrained="no",
         logits_mode=1,
     ):
         super().__init__()
@@ -78,12 +79,11 @@ class TransformerNetModel(nn.Module):
         self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
-
     def get_embeds(
-            self,
-            sn_sp_repr,
-            sn_input_ids,
-            indices_pos_enc,
+        self,
+        sn_sp_repr,
+        sn_input_ids,
+        indices_pos_enc,
     ):
 
         sn_sp_emb = self.sn_sp_repr_embedding(sn_sp_repr)
@@ -95,24 +95,24 @@ class TransformerNetModel(nn.Module):
             sn_input_ids_emb = self.proj_bert_emb(sn_input_ids_emb_bert_embs)
         return sn_sp_emb, pos_enc, sn_input_ids_emb
 
-
     def get_logits(self, model_output):
         if self.logits_mode == 1:
             return self.lm_head(model_output)
         elif self.logits_mode == 2:  # standard cosine similarity
-            raise NotImplementedError('standard cosine similarity not yet implemented for sp model output.')
+            raise NotImplementedError(
+                "standard cosine similarity not yet implemented for sp model output."
+            )
         else:
             raise NotImplementedError
 
-
     def forward(
-            self,
-            x,  # x_t
-            ts,
-            sn_input_ids_emb,
-            pos_enc,
-            attention_mask: Optional[torch.tensor] = None,
-            atten_vis: Optional[bool] = False,
+        self,
+        x,  # x_t
+        ts,
+        sn_input_ids_emb,
+        pos_enc,
+        attention_mask: Optional[torch.tensor] = None,
+        atten_vis: Optional[bool] = False,
     ):
         """
         Apply the model to an input batch.
@@ -135,7 +135,7 @@ class TransformerNetModel(nn.Module):
 
         if self.mask_padding:
             if attention_mask == None:
-                raise ValueError('padding should be masked, but no attention mask given.')
+                raise ValueError("padding should be masked, but no attention mask given.")
 
             extended_attention_mask = attention_mask[:, None, None, :]
 
@@ -159,11 +159,9 @@ class TransformerNetModel(nn.Module):
             else:
                 input_trans_hidden_states = self.input_transformers(emb_inputs).last_hidden_state
 
-
         h = input_trans_hidden_states
         h = h.type(x.dtype)
         if atten_vis:
             return h, attention_scores
         else:
             return h
-

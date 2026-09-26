@@ -1,7 +1,7 @@
 """
-Script that implements the scanpath similarity metric ScaSim by 
-Von der Malsburg, Titus, and Shravan Vasishth. 
-"What is the scanpath signature of syntactic reanalysis?." 
+Script that implements the scanpath similarity metric ScaSim by
+Von der Malsburg, Titus, and Shravan Vasishth.
+"What is the scanpath signature of syntactic reanalysis?."
 Journal of Memory and Language 65.2 (2011): 109-127.
 """
 
@@ -53,7 +53,6 @@ def scasim(
         acc += t[fix_j - 1][2]
         d[0][fix_j] = acc
 
-
     # Compute similarity:
     for fix_i in range(n):
         for fix_j in range(m):
@@ -63,15 +62,16 @@ def scasim(
             slat = s[fix_j][1] / (180 / pi)  # latitude (y-axis)
             tlat = t[fix_i][1] / (180 / pi)
 
-            angle = acos(sin(slat) * sin(tlat) + cos(slat) * cos(tlat) * cos(slon - tlon)) * (180 / pi)
+            angle = acos(sin(slat) * sin(tlat) + cos(slat) * cos(tlat) * cos(slon - tlon)) * (
+                180 / pi
+            )
 
             # approximation of cortical magnification:
-            mixer = modulator ** angle
+            mixer = modulator**angle
 
             # cost for substitution:
-            cost = (
-                abs(t[fix_i][2] - s[fix_j][2]) * mixer +
-                (t[fix_i][2] + s[fix_j][2]) * (1.0 - mixer)
+            cost = abs(t[fix_i][2] - s[fix_j][2]) * mixer + (t[fix_i][2] + s[fix_j][2]) * (
+                1.0 - mixer
             )
 
             # select optimal edit operation
@@ -81,26 +81,42 @@ def scasim(
                 d[fix_j][fix_i] + cost,
             )
 
-            #mi = which_min(*ops)
+            # mi = which_min(*ops)
             mi = np.argmin(ops)
 
             d[fix_j + 1][fix_i + 1] = ops[mi]
-        
+
     result = d[-1][-1]
-    if normalize == 'fixations':
-        result /= (s_nfix + t_nfix)
-    elif normalize == 'durations':
-        result /= (s_fixdur_sum + t_fixdur_sum)
+    if normalize == "fixations":
+        result /= s_nfix + t_nfix
+    elif normalize == "durations":
+        result /= s_fixdur_sum + t_fixdur_sum
 
     return result
 
 
 def main():
 
-    predicted_sp_ids = [[0, 1, 2, 3, 4, 5, 6, 8, 10, 10, 10, 11], [0, 1, 1, 2, 4, 5, 7, 4, 3, 7, 1, 8], [0, 1, 2, 4, 4, 5, 7, 7, 8, 9]]
-    original_sp_ids = [[0, 1, 2, 4, 2, 3, 5, 6, 8, 9, 10, 4, 11], [0, 1, 2, 4, 3, 8], [0, 1, 6, 8, 9]]
-    predicted_fix_durs = [[69, 52, 374, 374, 374, 374, 256, 423, 423, 423, 423, 188], [69, 52, 374, 384, 374, 374, 423, 423, 423, 423, 52, 423], [69, 52, 374, 502, 502, 374, 423, 423, 374, 374]]
-    original_fix_durs = [[0, 208, 232, 197, 314, 151, 219, 308, 195, 280, 260, 102], [0, 192, 182, 297, 134], [0, 195, 130, 101]]
+    predicted_sp_ids = [
+        [0, 1, 2, 3, 4, 5, 6, 8, 10, 10, 10, 11],
+        [0, 1, 1, 2, 4, 5, 7, 4, 3, 7, 1, 8],
+        [0, 1, 2, 4, 4, 5, 7, 7, 8, 9],
+    ]
+    original_sp_ids = [
+        [0, 1, 2, 4, 2, 3, 5, 6, 8, 9, 10, 4, 11],
+        [0, 1, 2, 4, 3, 8],
+        [0, 1, 6, 8, 9],
+    ]
+    predicted_fix_durs = [
+        [69, 52, 374, 374, 374, 374, 256, 423, 423, 423, 423, 188],
+        [69, 52, 374, 384, 374, 374, 423, 423, 423, 423, 52, 423],
+        [69, 52, 374, 502, 502, 374, 423, 423, 374, 374],
+    ]
+    original_fix_durs = [
+        [0, 208, 232, 197, 314, 151, 219, 308, 195, 280, 260, 102],
+        [0, 192, 182, 297, 134],
+        [0, 195, 130, 101],
+    ]
 
     # remove last element in each sublist of list for predicted_sp_ids, original_sp_ids, and predicted_fix_durs
     # these are the pad tokens and they are not contained in original_fix_durs
@@ -113,14 +129,28 @@ def main():
     dummy_y_predicted_sp_ids = [[1] * len(sublist) for sublist in predicted_sp_ids]
 
     # zip together the predicted_sp_ids and predicted_fix_durs lists as list of list of tuples
-    predicted_sp = list(map(lambda x, y, z: list(zip(x, y, z)), predicted_sp_ids, dummy_y_predicted_sp_ids, predicted_fix_durs))
+    predicted_sp = list(
+        map(
+            lambda x, y, z: list(zip(x, y, z)),
+            predicted_sp_ids,
+            dummy_y_predicted_sp_ids,
+            predicted_fix_durs,
+        )
+    )
     # zip together the original_sp_ids and original_fix_durs lists as list of list of tuples
-    original_sp = list(map(lambda x, y, z: list(zip(x, y, z)), original_sp_ids, dummy_y_original_sp_ids, original_fix_durs))
+    original_sp = list(
+        map(
+            lambda x, y, z: list(zip(x, y, z)),
+            original_sp_ids,
+            dummy_y_original_sp_ids,
+            original_fix_durs,
+        )
+    )
 
     s1 = predicted_sp[0]
     t1 = original_sp[0]
     sim1 = scasim(s=s1, t=t1)
-    
+
     s2 = predicted_sp[1]
     t2 = original_sp[1]
     sim2 = scasim(s=s2, t=t2)
@@ -130,27 +160,26 @@ def main():
     sim3 = scasim(s=s3, t=t3)
 
     # normalize by fixations
-    sim10 = scasim(s=s1, t=t1, normalize='fixations')
-    sim11 = scasim(s=s2, t=t2, normalize='fixations')
-    sim12 = scasim(s=s3, t=t3, normalize='fixations')
+    sim10 = scasim(s=s1, t=t1, normalize="fixations")
+    sim11 = scasim(s=s2, t=t2, normalize="fixations")
+    sim12 = scasim(s=s3, t=t3, normalize="fixations")
 
     # normalize by durations
-    sim13 = scasim(s=s1, t=t1, normalize='durations')
-    sim14 = scasim(s=s2, t=t2, normalize='durations')
-    sim15 = scasim(s=s3, t=t3, normalize='durations')
+    sim13 = scasim(s=s1, t=t1, normalize="durations")
+    sim14 = scasim(s=s2, t=t2, normalize="durations")
+    sim15 = scasim(s=s3, t=t3, normalize="durations")
 
-    print('normalize by fixations')
-    print('sim10:', sim10)
-    print('sim11:', sim11)
-    print('sim12:', sim12)
-    print('normalize by durations')
-    print('sim13:', sim13)
-    print('sim14:', sim14)
-    print('sim15:', sim15)
-
+    print("normalize by fixations")
+    print("sim10:", sim10)
+    print("sim11:", sim11)
+    print("sim12:", sim12)
+    print("normalize by durations")
+    print("sim13:", sim13)
+    print("sim14:", sim14)
+    print("sim15:", sim15)
 
     breakpoint()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

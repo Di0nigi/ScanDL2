@@ -26,8 +26,7 @@ def normal_kl(mean1, logvar1, mean2, logvar2):
     # Force variances to be Tensors. Broadcasting helps convert scalars to
     # Tensors, but it does not work for th.exp().
     logvar1, logvar2 = [
-        x if isinstance(x, th.Tensor) else th.tensor(x).to(tensor)
-        for x in (logvar1, logvar2)
+        x if isinstance(x, th.Tensor) else th.tensor(x).to(tensor) for x in (logvar1, logvar2)
     ]
 
     # print(logvar2.shape)
@@ -80,8 +79,10 @@ def discretized_gaussian_log_likelihood(x, *, means, log_scales):
     assert log_probs.shape == x.shape
     return log_probs
 
+
 def gaussian_density(x, *, means, log_scales):
     from torch.distributions import Normal
+
     normal_dist = Normal(means, log_scales.exp())
     logp = normal_dist.log_prob(x)
     return logp

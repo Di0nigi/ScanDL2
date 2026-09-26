@@ -20,7 +20,6 @@ from ScanDL2.scandl_module.original_scandl.utils.fp16_util import (
 from ScanDL2.scandl_module.original_scandl.utils.nn import update_ema
 from ScanDL2.scandl_module.original_scandl.step_sample import LossAwareSampler, UniformSampler
 
-
 INITIAL_LOG_LOSS_SCALE = 20.0
 
 
@@ -43,8 +42,8 @@ class TrainLoop:
         schedule_sampler=None,
         weight_decay=0.0,
         learning_steps=0,
-        checkpoint_path='',
-        gradient_clipping=-1.,
+        checkpoint_path="",
+        gradient_clipping=-1.0,
         eval_data=None,
         eval_interval=-1,
     ):
@@ -56,9 +55,7 @@ class TrainLoop:
         self.microbatch = microbatch if microbatch > 0 else batch_size
         self.lr = lr
         self.ema_rate = (
-            [ema_rate]
-            if isinstance(ema_rate, float)
-            else [float(x) for x in ema_rate.split(",")]
+            [ema_rate] if isinstance(ema_rate, float) else [float(x) for x in ema_rate.split(",")]
         )
         self.log_interval = log_interval
         self.eval_interval = eval_interval
@@ -94,13 +91,9 @@ class TrainLoop:
             self.opt = AdamW(self.master_params, lr=lr, weight_decay=self.weight_decay)
             # Model was resumed, either due to a restart or a checkpoint
             # being specified at the command line.
-            self.ema_params = [
-                self._load_ema_parameters(rate) for rate in self.ema_rate
-            ]
+            self.ema_params = [self._load_ema_parameters(rate) for rate in self.ema_rate]
         else:
-            self.ema_params = [
-                copy.deepcopy(self.master_params) for _ in range(len(self.ema_rate))
-            ]
+            self.ema_params = [copy.deepcopy(self.master_params) for _ in range(len(self.ema_rate))]
 
         if th.cuda.is_available():  # DEBUG **
             self.use_ddp = True
@@ -126,7 +119,7 @@ class TrainLoop:
     def _load_and_sync_parameters(self):
         resume_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
 
-        if resume_checkpoint[-3:] == '.pt':
+        if resume_checkpoint[-3:] == ".pt":
             self.resume_step = parse_resume_step_from_filename(resume_checkpoint)
             if dist.get_rank() == 0:
                 logger.log(f"loading model from checkpoint: {resume_checkpoint}...")
@@ -168,9 +161,7 @@ class TrainLoop:
         self.model.convert_to_fp16()
 
     def run_loop(self):
-        while (
-            not self.learning_steps or self.step + self.resume_step < self.learning_steps
-        ):
+        while not self.learning_steps or self.step + self.resume_step < self.learning_steps:
             batch = next(self.data)
             self.run_step(batch)
             if self.step % self.log_interval == 0:
@@ -178,7 +169,7 @@ class TrainLoop:
             if self.eval_data is not None and self.step % self.eval_interval == 0:
                 batch_eval = next(self.eval_data)
                 self.forward_only(batch_eval)
-                print('eval on validation set')
+                print("eval on validation set")
                 logger.dumpkvs()
             if self.step > 0 and self.step % self.save_interval == 0:
                 self.save()
@@ -191,8 +182,8 @@ class TrainLoop:
             self.save()
 
     def run_step(
-            self,
-            batch,
+        self,
+        batch,
     ):
         self.forward_backward(batch)
         if self.use_fp16:
@@ -205,14 +196,20 @@ class TrainLoop:
         with th.no_grad():
             zero_grad(self.model_params)
 
-            for i in range(0, batch['sn_sp_repr'].shape[0], self.microbatch):
+            for i in range(0, batch["sn_sp_repr"].shape[0], self.microbatch):
 
-                mask = batch['mask'][i:i + self.microbatch].to(dist_util.dev())
-                sn_sp_repr = batch['sn_sp_repr'][i:i + self.microbatch].to(dist_util.dev())
-                sn_input_ids = batch['sn_input_ids'][i:i + self.microbatch].to(dist_util.dev())
-                indices_pos_enc = batch['indices_pos_enc'][i:i + self.microbatch].to(dist_util.dev())
-                mask_sn_padding = batch['mask_sn_padding'][i:i + self.microbatch].to(dist_util.dev())
-                mask_transformer_att = batch['mask_transformer_att'][i:i + self.microbatch].to(dist_util.dev())
+                mask = batch["mask"][i : i + self.microbatch].to(dist_util.dev())
+                sn_sp_repr = batch["sn_sp_repr"][i : i + self.microbatch].to(dist_util.dev())
+                sn_input_ids = batch["sn_input_ids"][i : i + self.microbatch].to(dist_util.dev())
+                indices_pos_enc = batch["indices_pos_enc"][i : i + self.microbatch].to(
+                    dist_util.dev()
+                )
+                mask_sn_padding = batch["mask_sn_padding"][i : i + self.microbatch].to(
+                    dist_util.dev()
+                )
+                mask_transformer_att = batch["mask_transformer_att"][i : i + self.microbatch].to(
+                    dist_util.dev()
+                )
 
                 last_batch = (i + self.microbatch) >= sn_sp_repr.shape[0]
                 t, weights = self.schedule_sampler.sample(sn_sp_repr.shape[0], dist_util.dev())
@@ -235,23 +232,25 @@ class TrainLoop:
                         losses = compute_losses()
 
                 log_loss_dict(
-                    self.diffusion, t, {f'eval_{k}': v * weights for k, v in losses.items()}
+                    self.diffusion, t, {f"eval_{k}": v * weights for k, v in losses.items()}
                 )
 
     def forward_backward(
-            self,
-            batch,
+        self,
+        batch,
     ):
         zero_grad(self.model_params)
 
-        for i in range(0, batch['sn_sp_repr'].shape[0], self.microbatch):
+        for i in range(0, batch["sn_sp_repr"].shape[0], self.microbatch):
 
-            mask = batch['mask'][i:i + self.microbatch].to(dist_util.dev())
-            sn_sp_repr = batch['sn_sp_repr'][i:i + self.microbatch].to(dist_util.dev())
-            sn_input_ids = batch['sn_input_ids'][i:i + self.microbatch].to(dist_util.dev())
-            indices_pos_enc = batch['indices_pos_enc'][i:i + self.microbatch].to(dist_util.dev())
-            mask_sn_padding = batch['mask_sn_padding'][i:i + self.microbatch].to(dist_util.dev())
-            mask_transformer_att = batch['mask_transformer_att'][i:i + self.microbatch].to(dist_util.dev())
+            mask = batch["mask"][i : i + self.microbatch].to(dist_util.dev())
+            sn_sp_repr = batch["sn_sp_repr"][i : i + self.microbatch].to(dist_util.dev())
+            sn_input_ids = batch["sn_input_ids"][i : i + self.microbatch].to(dist_util.dev())
+            indices_pos_enc = batch["indices_pos_enc"][i : i + self.microbatch].to(dist_util.dev())
+            mask_sn_padding = batch["mask_sn_padding"][i : i + self.microbatch].to(dist_util.dev())
+            mask_transformer_att = batch["mask_transformer_att"][i : i + self.microbatch].to(
+                dist_util.dev()
+            )
 
             last_batch = (i + self.microbatch) >= sn_sp_repr.shape[0]
 
@@ -277,17 +276,13 @@ class TrainLoop:
                     losses = compute_losses()
 
             if isinstance(self.schedule_sampler, LossAwareSampler):
-                self.schedule_sampler.update_with_local_losses(
-                    t, losses["loss"].detach()
-                )
+                self.schedule_sampler.update_with_local_losses(t, losses["loss"].detach())
 
             # weight the losses with what the schedule sampler returned
             loss = (losses["loss"] * weights).mean()
-            log_loss_dict(
-                self.diffusion, t, {k: v * weights for k, v in losses.items()}
-            )
+            log_loss_dict(self.diffusion, t, {k: v * weights for k, v in losses.items()})
             if self.use_fp16:
-                loss_scale = 2 ** self.lg_loss_scale
+                loss_scale = 2**self.lg_loss_scale
                 (loss * loss_scale).backward()
             else:
                 loss.backward()
@@ -299,7 +294,7 @@ class TrainLoop:
             return
 
         model_grads_to_master_grads(self.model_params, self.master_params)
-        self.master_params[0].grad.mul_(1.0 / (2 ** self.lg_loss_scale))
+        self.master_params[0].grad.mul_(1.0 / (2**self.lg_loss_scale))
         self._log_grad_norm()
         self._anneal_lr()
         self.opt.step()
@@ -345,7 +340,7 @@ class TrainLoop:
             # print(cnt, p.grad)
             # cnt += 1
             if p.grad is not None:
-                sqsum += (p.grad ** 2).sum().item()
+                sqsum += (p.grad**2).sum().item()
         logger.logkv_mean("grad_norm", np.sqrt(sqsum))
 
     def _anneal_lr(self):
@@ -371,8 +366,8 @@ class TrainLoop:
                     filename = f"model{(self.step+self.resume_step):06d}.pt"
                 else:
                     filename = f"ema_{rate}_{(self.step+self.resume_step):06d}.pt"
-                print('writing to', bf.join(get_blob_logdir(), filename))
-                print('writing to', bf.join(self.checkpoint_path, filename))
+                print("writing to", bf.join(get_blob_logdir(), filename))
+                print("writing to", bf.join(self.checkpoint_path, filename))
                 # with bf.BlobFile(bf.join(get_blob_logdir(), filename), "wb") as f:
                 #     th.save(state_dict, f)
                 with bf.BlobFile(bf.join(self.checkpoint_path, filename), "wb") as f:  # DEBUG **
@@ -409,7 +404,7 @@ def parse_resume_step_from_filename(filename):
     Parse filenames of the form path/to/modelNNNNNN.pt, where NNNNNN is the
     checkpoint's number of steps.
     """
-    if filename[-3:] == '.pt':
+    if filename[-3:] == ".pt":
         return int(filename[-9:-3])
     else:
         return 0

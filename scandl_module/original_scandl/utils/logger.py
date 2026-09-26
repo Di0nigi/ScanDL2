@@ -14,7 +14,8 @@ import tempfile
 import warnings
 from collections import defaultdict
 from contextlib import contextmanager
-#import wandb
+
+# import wandb
 
 DEBUG = 10
 INFO = 20
@@ -49,7 +50,7 @@ class HumanOutputFormat(KVWriter, SeqWriter):
     def writekvs(self, kvs):
         # Create strings for printing
         key2str = {}
-        for (key, val) in sorted(kvs.items()):
+        for key, val in sorted(kvs.items()):
             if hasattr(val, "__float__"):
                 valstr = "%-8.3g" % val
             else:
@@ -67,7 +68,7 @@ class HumanOutputFormat(KVWriter, SeqWriter):
         # Write out the data
         dashes = "-" * (keywidth + valwidth + 7)
         lines = [dashes]
-        for (key, val) in sorted(key2str.items(), key=lambda kv: kv[0].lower()):
+        for key, val in sorted(key2str.items(), key=lambda kv: kv[0].lower()):
             lines.append(
                 "| %s%s | %s%s |"
                 % (key, " " * (keywidth - len(key)), val, " " * (valwidth - len(val)))
@@ -84,7 +85,7 @@ class HumanOutputFormat(KVWriter, SeqWriter):
 
     def writeseq(self, seq):
         seq = list(seq)
-        for (i, elem) in enumerate(seq):
+        for i, elem in enumerate(seq):
             self.file.write(elem)
             if i < len(seq) - 1:  # add space unless this is the last one
                 self.file.write(" ")
@@ -126,7 +127,7 @@ class CSVOutputFormat(KVWriter):
             self.file.seek(0)
             lines = self.file.readlines()
             self.file.seek(0)
-            for (i, k) in enumerate(self.keys):
+            for i, k in enumerate(self.keys):
                 if i > 0:
                     self.file.write(",")
                 self.file.write(k)
@@ -135,7 +136,7 @@ class CSVOutputFormat(KVWriter):
                 self.file.write(line[:-1])
                 self.file.write(self.sep * len(extra_keys))
                 self.file.write("\n")
-        for (i, k) in enumerate(self.keys):
+        for i, k in enumerate(self.keys):
             if i > 0:
                 self.file.write(",")
             v = kvs.get(k)
@@ -176,9 +177,7 @@ class TensorBoardOutputFormat(KVWriter):
 
         summary = self.tf.Summary(value=[summary_val(k, v) for k, v in kvs.items()])
         event = self.event_pb2.Event(wall_time=time.time(), summary=summary)
-        event.step = (
-            self.step
-        )  # is there any reason why you'd want to specify the step?
+        event.step = self.step  # is there any reason why you'd want to specify the step?
         self.writer.WriteEvent(event)
         self.writer.Flush()
         self.step += 1
@@ -230,7 +229,7 @@ def logkvs(d):
     """
     Log a dictionary of key-value pairs
     """
-    for (k, v) in d.items():
+    for k, v in d.items():
         logkv(k, v)
 
 
@@ -359,17 +358,14 @@ class Logger(object):
         else:
             d = mpi_weighted_mean(
                 self.comm,
-                {
-                    name: (val, self.name2cnt.get(name, 1))
-                    for (name, val) in self.name2val.items()
-                },
+                {name: (val, self.name2cnt.get(name, 1)) for (name, val) in self.name2val.items()},
             )
             if self.comm.rank != 0:
                 d["dummy"] = 1  # so we don't get a warning about empty dict
         # LISA
         out = d.copy()  # Return the dict for unit testing purposes
-        if int(os.environ['LOCAL_RANK']) == 0:
-            #wandb.log({**d})
+        if int(os.environ["LOCAL_RANK"]) == 0:
+            # wandb.log({**d})
             for fmt in self.output_formats:
                 if isinstance(fmt, KVWriter):
                     fmt.writekvs(d)
@@ -425,15 +421,13 @@ def mpi_weighted_mean(comm, local_name2valcount):
         name2sum = defaultdict(float)
         name2count = defaultdict(float)
         for n2vc in all_name2valcount:
-            for (name, (val, count)) in n2vc.items():
+            for name, (val, count) in n2vc.items():
                 try:
                     val = float(val)
                 except ValueError:
                     if comm.rank == 0:
                         warnings.warn(
-                            "WARNING: tried to compute mean on non-float {}={}".format(
-                                name, val
-                            )
+                            "WARNING: tried to compute mean on non-float {}={}".format(name, val)
                         )
                 else:
                     name2sum[name] += val * count
@@ -496,4 +490,3 @@ def scoped_configure(dir=None, format_strs=None, comm=None):
     finally:
         Logger.CURRENT.close()
         Logger.CURRENT = prevlogger
-

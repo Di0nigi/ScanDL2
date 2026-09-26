@@ -4,7 +4,6 @@ from pprint import pprint
 from pathlib import Path
 from unittest.mock import patch
 
-
 SCANDL2_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = SCANDL2_ROOT.parent
 if str(PROJECT_ROOT) not in sys.path:

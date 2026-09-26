@@ -13,6 +13,7 @@ import torch.distributed as dist
 
 # Change this to reflect your cluster layout.
 
+
 def setup_dist():
     """
     Setup a distributed process group.
@@ -22,9 +23,9 @@ def setup_dist():
 
     # UNCOMMENT IF ON LINUX/MAC
 
-    #backend = "gloo" if not th.cuda.is_available() else "nccl" 
+    # backend = "gloo" if not th.cuda.is_available() else "nccl"
 
-    backend = 'gloo'
+    backend = "gloo"
 
     if backend == "gloo":
         hostname = "localhost"
@@ -37,7 +38,7 @@ def setup_dist():
         os.environ["WORLD_SIZE"] = str(1)
         port = _find_free_port()
         os.environ["MASTER_PORT"] = str(port)
-        os.environ['LOCAL_RANK'] = str(0)
+        os.environ["LOCAL_RANK"] = str(0)
 
     dist.init_process_group(backend=backend, init_method="env://")
 

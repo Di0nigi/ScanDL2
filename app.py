@@ -8,12 +8,9 @@ import gradio as gr
 import torch
 
 
-
-from ScanDL2 import ScanDL2 
+from ScanDL2 import ScanDL2
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-
 
 
 _MODELS: Dict[str, ScanDL2] = {}
@@ -38,7 +35,6 @@ def predict(
     if text is None or text.strip() == "":
         raise gr.Error("Please provide some input text.")
 
-   
     lines = [ln.strip() for ln in text.strip().split("\n") if ln.strip()]
     if len(lines) == 0:
         raise gr.Error("Input text is empty after cleaning.")
@@ -87,7 +83,6 @@ def format_json(output: Dict[str, Any]) -> str:
     if output is None:
         return "{}"
     return json.dumps(output, indent=2, ensure_ascii=False)
-
 
 
 DESCRIPTION = """

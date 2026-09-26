@@ -8,6 +8,7 @@ import torch
 import torch as th
 import torch.nn as nn
 
+
 # PyTorch 1.7 has SiLU, but we support PyTorch 1.5.
 class SiLU(nn.Module):
     def forward(self, x):
@@ -17,6 +18,7 @@ class SiLU(nn.Module):
 class GroupNorm32(nn.GroupNorm):
     def forward(self, x):
         return super().forward(x.float()).type(x.dtype)
+
 
 def linear(*args, **kwargs):
     """
@@ -128,7 +130,6 @@ def concatenate_sn_sp(sn_repr_emb, sp_repr_emb, sn_repr_len):
     return concat_emb
 
 
-
 def split_into_sn_and_sp(model_output, sn_repr_len):
     # create an empty tensor to store the split sn_repr
     model_output_sn = torch.empty_like(model_output)
@@ -156,7 +157,7 @@ def split_into_sn_and_sp(model_output, sn_repr_len):
         # the SN
         # split the sn_repr of the current instance off from the model output
         sn_repr_out = model_output[i, :orig_sn_len]
-        sn_padding = sn_repr_out[-1].repeat(seq_len-orig_sn_len, 1)
+        sn_padding = sn_repr_out[-1].repeat(seq_len - orig_sn_len, 1)
         model_output_sn[i] = torch.cat([sn_repr_out, sn_padding], dim=0)
 
         # the masks: they only mask the additional padding added now, not the original padding added after the sp
@@ -171,4 +172,3 @@ def split_into_sn_and_sp(model_output, sn_repr_len):
     model_output_sp_mask = model_output_sp_mask.to(model_output.device)
 
     return model_output_sn, model_output_sp, model_output_sn_mask, model_output_sp_mask
-
